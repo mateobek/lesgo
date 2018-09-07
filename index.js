@@ -306,7 +306,7 @@ function receipt(typeOfProduct, product, ammount){
 }
                 //// cafe objekt - open - close ////
 let cafeBar = {
-    open: false,
+    open: true,
     cafeOpen: function(){
         if(!this.open){
             console.log('The Bar is closed, opening now.');
@@ -317,13 +317,18 @@ let cafeBar = {
     },
     cafeClose: function(){
         if(this.open){
-            console.log('The Bar is closing now.');
+            console.log('The Bar is open, closing now.');
             this.open = false;
         } else {
             console.log('The Bar is already closed.');
         }
-    }
+    },
+    tableNum: 15
 };
+
+function tblNum(object, objectProp){
+
+}
                 //// objekt ljudi za vl, kon, gost ////
 let People = {
     vlasnik:{
@@ -343,15 +348,22 @@ let People = {
             prezime: 'Bago'
         },
         Pajser:{
-            ime: 'Paka',
+            ime: 'Pajo',
             prezime: 'Program'
         },
+        makeCoffee: function(){
+        }
     },
-    gost: function(ime, prezime){
-        this.ime = ime;
-        this.prezime = prezime;
-    }
+    guest: function(ime, prezime){
+            this.ime = ime;
+            this.prezime = prezime;
+            let arr = [];
+            arr.push([this.ime + ' ' + this.prezime]);
+            return arr;
+        }
 };
+let ml = new People.guest('Mate', 'Lula');
+let ik = new People.guest('Ivan', 'Kvaka');
 
 Food.prototype = Object.create(Artikal.prototype);
 Food.prototype.constructor = Food;
@@ -360,11 +372,15 @@ Beverage.prototype = Object.create(Artikal.prototype);
 Beverage.prototype.constructor = Beverage ;
 
 let cocaCola = new Beverage('CocaCola', 'Gazirano', 15, 200);
+let kava = new Beverage('Kava', 'Topli napitak', 7, 50);
+let kavaVel = new Beverage('Kava Velika', 'Topli napitak', 10, 100 );
 let krafna = new Food('Krafna', 'Cokolada', 5, 400);
 
-console.log(cafeBar.cafeOpen());
 receipt(Food, krafna, 2);
 receipt(Beverage, cocaCola, 3);
 receipt(Food, krafna, 1);
-receipt(Beverage, cocaCola, 5);
+receipt(Beverage, kavaVel, 10);
 console.log(People.vlasnik.getReport(report));
+People.guest(ml);
+People.guest(ik);
+console.log(People.guest());
